@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 import {
     registerUser,loginUser,
@@ -8,9 +8,9 @@ import {
     logoutUser,
     changeCurrentPassword,
     getCurrentUser } 
-from "../controllers/user.controller";
+from "../controllers/user.controller.js";
 
-const router = router()
+const router = Router()
 
 router.route("/register").post(registerUser)
 
