@@ -41,4 +41,11 @@ import userRouter from "../src/routes/user.routes.js"
 app.use("/api/v1/users",userRouter)
 
 
+import chatRouter from "../src/routes/chat.routes.js"
+import messageRouter from "../src/routes/message.routes.js"
+
+app.use("/api/v1/chat-app/chats", chatRouter);
+app.use("/api/v1/chat-app/messages", messageRouter);
+
+
 export {httpServer}
