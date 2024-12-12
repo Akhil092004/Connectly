@@ -1,6 +1,6 @@
 import { UserInterface } from "./user";
 
-export interface ChatListItemInterace {
+export interface ChatListItemInterface {
     admin:string;
     createdAt:string;
     isGroupChat:true;
