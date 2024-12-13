@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { deleteMessage,getAllMessages,sendMessage } from "../controllers/message.controller";
-import { verifyJWT } from "../middlewares/auth.middleware";
-import { sendMessageValidator } from "../validators/message.validator";
-import { mongoIdPathVariableValidator } from "../validators/mondoDB.validator";
-import { validate } from "../validators/validate";
+import { deleteMessage,getAllMessages,sendMessage } from "../controllers/message.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { sendMessageValidator } from "../validators/message.validator.js";
+import { mongoIdPathVariableValidator } from "../validators/mondoDB.validator.js";
+import { validate } from "../validators/validate.js";
 
 
 
