@@ -170,6 +170,7 @@ const ChatPage = () => {
         // If no current chat ID exists or there's no socket connection, exit the function
         if (!currentChat.current?._id || !socket) return;
 
+
         // Emit a STOP_TYPING_EVENT to inform other users/participants that typing has stopped
         socket.emit(STOP_TYPING_EVENT, currentChat.current?._id);
 

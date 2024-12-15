@@ -2,6 +2,7 @@ import {Chat} from "../models/chat.model.js"
 import {ChatMessage} from "../models/message.model.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import { ApiError } from "../utils/ApiError.js"
+import { ChatEventEnum } from "../constants.js"
 import { asyncHandler } from "../utils/asyncHandler.js"
 import mongoose from "mongoose"
 import { emitSocketEvent } from "../socket/index.js"
@@ -75,7 +76,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
 const sendMessage = asyncHandler(async (req, res) => {
   const { chatId } = req.params;
   const { content } = req.body;
-
+  // console.log(chatId);
   if (!content) {
     throw new ApiError(400, "Message content is Required");
   }
@@ -127,7 +128,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     // here the chat is the raw instance of the chat in which participants is the array of object ids of users
     // avoid emitting event to the user who is sending the message
     if (participantObjectId.toString() === req.user._id.toString()) return;
-
+    // console.log("emitting socket event");
     // emit the receive message event to the other participants with received message as the payload
     emitSocketEvent(
       req,

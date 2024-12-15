@@ -84,11 +84,17 @@ const getChatMessages = (chatId: string) => {
 };
 
 const sendMessage = (chatId: string, content: string) => {
-    const formData = new FormData();
-    if (content) {
-        formData.append("content", content);
-    }
-    return apiClient.post(`/chat-app/messages/${chatId}`, formData);
+    // Prepare the data as a JSON object
+    const data = {
+        content: content,
+    };
+
+    // Send a POST request with JSON payload
+    return apiClient.post(`/chat-app/messages/${chatId}`, data, {
+        headers: {
+            'Content-Type': 'application/json', // Ensure it's treated as JSON
+        },
+    });
 };
 
 const deleteMessage = (chatId: string, messageId: string) => {

@@ -4,10 +4,12 @@ const sendMessageValidator = () => {
   return [
     body("content")
       .trim()
-      .optional()
       .notEmpty()
-      .withMessage("Content is required"),
+      .withMessage("Content is required")
+      .custom((value) => {
+        console.log("Validated content:", value); // Log the content value
+        return true;
+      }),
   ];
 };
-
 export { sendMessageValidator };
