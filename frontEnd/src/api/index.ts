@@ -22,6 +22,7 @@ apiClient.interceptors.request.use(
 );
 
 const loginUser = (data: { username: string; password: string }) => {
+    // console.log(data);
     return apiClient.post("/users/login", data);
 };
 
@@ -30,11 +31,13 @@ const registerUser = (data:{
     password:string;
     username:String;
 })=> {
-    return apiClient.post("/users/registers",data);
+    // console.log(data);
+    return apiClient.post("/users/register",data);
 }
 
 
 const logoutUser = () => {
+    console.log("logging out call");
     return apiClient.get("/users/logout")
 }
 
@@ -42,9 +45,7 @@ const getAvailableUsers = () => {
     return apiClient.get("/chat-app/chats/users");
 }
 
-const getUserChat = ()=>{
-    return apiClient.get("/chat-app/chats");
-}
+
 
 const createUserChat = (receiverId:string) => {
     return apiClient.post(`/chat-app/chats/c/${receiverId}`)

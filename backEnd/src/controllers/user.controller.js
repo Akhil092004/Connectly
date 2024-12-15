@@ -26,7 +26,8 @@ const generateAccessAndRefreshTokens = async (userId) => {
 }
 
 const registerUser = asyncHandler( async (req,res) =>{
-    const {email,username,password} = req.body
+    const {email,username,password} = req.body;
+    console.log(email);
 
     //check if all fields are present or not
     if(
@@ -42,10 +43,13 @@ const registerUser = asyncHandler( async (req,res) =>{
     })
 
     if(existedUser){
+        console.log("already Exist");
         throw new ApiError(409,"User with email or username already exist")
     }
 
     //create a new user
+    console.log("new User Creating");
+    
     const user  = await User.create({
         email,
         password,
@@ -57,6 +61,7 @@ const registerUser = asyncHandler( async (req,res) =>{
     )
 
     if(!createdUser){
+        console.log("cant create");
         throw new ApiError(500,"Something went wrong while registering the User")
     }
 
@@ -69,6 +74,7 @@ const registerUser = asyncHandler( async (req,res) =>{
 const loginUser = asyncHandler(async(req,res) => {
 
     const {username,email,password} = req.body;
+    console.log(email);
 
     
     if(!username && !email){
@@ -120,6 +126,8 @@ const loginUser = asyncHandler(async(req,res) => {
 })
 
 const logoutUser = asyncHandler(async (req,res) => {
+
+    console.log("logout call received");
     await User.findByIdAndUpdate(
         req.user._id,
         {

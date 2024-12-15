@@ -15,6 +15,7 @@ export const requestHandler = async (
   setLoading && setLoading(true);
   try {
     // Make the API request
+    console.log("making api call");
     const response = await api();
     const { data } = response;
     if (data?.success) {
@@ -23,7 +24,7 @@ export const requestHandler = async (
     }
   } catch (error: any) {
     // Handle error cases, including unauthorized and forbidden cases
-    if ([401, 403].includes(error?.response.data?.statusCode)) {
+    if ([401, 403].includes(error?.response?.data?.statusCode)) {
       localStorage.clear(); // Clear local storage on authentication issues
       if (isBrowser) window.location.href = "/login"; // Redirect to login page
     }

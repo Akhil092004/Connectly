@@ -63,6 +63,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
         },
       },
     ]);
+    console.log("got messages");
   
     return res
       .status(200)

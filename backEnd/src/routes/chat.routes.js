@@ -23,11 +23,12 @@ router.use(verifyJWT)
 
 router.route("/").get(getAllChats)
 
-router.route("/user").get(searchAvailableUsers)
+router.route("/users").get(searchAvailableUsers)
 
 
-router.route("/c/:recieverId").post(
-    mongoIdPathVariableValidator("recieverId"),
+router.route("/c/:receiverId").post(
+
+    mongoIdPathVariableValidator("receiverId"),
     validate,
     createOrGetAOneOnOneChat
 )
@@ -35,8 +36,6 @@ router.route("/c/:recieverId").post(
 router
     .route("/group")
     .post(createAGroupChatValidator(),validate,createAGroupChat)
-
-
 
 
 router.route("/group/:chatId")
