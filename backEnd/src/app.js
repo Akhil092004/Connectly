@@ -21,7 +21,10 @@ const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onr
 //   res.sendFile(path.join(__dirname, '../../frontEnd/dist', 'index.html'));
 // });
 
-
+app.get('*', (req, res) => {
+  // Redirect all frontend routes to the frontend's base URL
+  res.redirect('https://connectly-frontend.onrender.com');
+});
 
 // CORS middleware with dynamic origin checking
 app.use(cors({
