@@ -6,6 +6,19 @@ import {createServer} from "http"
 import requestIp from "request-ip";
 
 const app = express();
+const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onrender.com']; // Add as many as needed
+
+// CORS middleware with dynamic origin checking
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'), false); // Block the request
+    }
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 
 const httpServer = createServer(app)
@@ -13,17 +26,23 @@ const httpServer = createServer(app)
 const io = new Server(httpServer,{
     pingTimeout: 60000,
     cors: {
-        origin: 'http://localhost:5173',
+        origin: (origin, callback) => {
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+              callback(null, true); // Allow the request
+            } else {
+              callback(new Error('Not allowed by CORS'), false); // Block the request
+            }
+          },
         credentials: true,
     },
 })
 
 
 app.set("io",io)
-app.use(cors({
-    origin: "http://localhost:5173", // Your frontend URL
-    credentials: true // Allow credentials (cookies, authorization headers, etc.)
-}));
+// app.use(cors({
+//     origin: "http://localhost:5173", // Your frontend URL
+//     credentials: true // Allow credentials (cookies, authorization headers, etc.)
+// }));
   
 app.options('*', cors()); // Handle preflight requests
 
