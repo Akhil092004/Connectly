@@ -108,8 +108,10 @@ const initializeSocketIO = (io) => {
  * @param {any} payload - Data that should be sent when emitting the event
  * @description Utility function responsible to abstract the logic of socket emission via the io instance
  */
+
+
 const emitSocketEvent = (req, roomId, event, payload) => {
-  console.log("emitting the final call for chat")
+  console.log("socket event trigerred",event,payload);
   req.app.get("io").in(roomId).emit(event, payload);
 };
 
