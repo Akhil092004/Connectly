@@ -10,16 +10,16 @@ import { fileURLToPath } from 'url';
 const app = express();
 const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onrender.com']; // Add as many as needed
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 
-app.use(express.static(path.join(__dirname, '../../frontEnd/dist')));
+// app.use(express.static(path.join(__dirname, '../../frontEnd/dist')));
 
-// Catch-all route to serve the React app for any unmatched routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../frontEnd/dist', 'index.html'));
-});
+// // Catch-all route to serve the React app for any unmatched routes
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../../frontEnd/dist', 'index.html'));
+// });
 
 
 
