@@ -8,6 +8,13 @@ import requestIp from "request-ip";
 const app = express();
 const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onrender.com']; // Add as many as needed
 
+app.use(express.static(path.join(__dirname, 'build')));
+
+// Serve the index.html for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 // CORS middleware with dynamic origin checking
 app.use(cors({
   origin: (origin, callback) => {
