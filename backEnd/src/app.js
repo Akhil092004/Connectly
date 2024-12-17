@@ -8,10 +8,10 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onrender.com']; // Add as many as needed
+const allowedOrigins = ['http://localhost:5173', 'hhttp://localhost:8000']; // Add as many as needed
 
 // const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __dirname = path.resolve();
 
 
 // app.use(express.static(path.join(__dirname, '../../frontEnd/dist')));
@@ -21,38 +21,34 @@ const allowedOrigins = ['http://localhost:5173', 'https://connectly-frontend.onr
 //   res.sendFile(path.join(__dirname, '../../frontEnd/dist', 'index.html'));
 // });
 
-app.get('*', (req, res) => {
-  // Redirect all frontend routes to the frontend's base URL
-  res.redirect('https://connectly-frontend.onrender.com');
-});
 
 // CORS middleware with dynamic origin checking
-app.use(cors({
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true); // Allow the request
-    } else {
-      callback(new Error('Not allowed by CORS'), false); // Block the request
-    }
-  },
-  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-}));
+// app.use(cors({
+//   origin: (origin, callback) => {
+//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true); // Allow the request
+//     } else {
+//       callback(new Error('Not allowed by CORS'), false); // Block the request
+//     }
+//   },
+//   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+// }));
 
 
 const httpServer = createServer(app)
 
 const io = new Server(httpServer,{
     pingTimeout: 60000,
-    cors: {
-        origin: (origin, callback) => {
-            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-              callback(null, true); // Allow the request
-            } else {
-              callback(new Error('Not allowed by CORS'), false); // Block the request
-            }
-          },
-        credentials: true,
-    },
+    // cors: {
+    //     origin: (origin, callback) => {
+    //         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+    //           callback(null, true); // Allow the request
+    //         } else {
+    //           callback(new Error('Not allowed by CORS'), false); // Block the request
+    //         }
+    //       },
+    //     credentials: true,
+    // },
 })
 
 
@@ -86,4 +82,9 @@ app.use("/api/v1/chat-app/chats", chatRouter);
 app.use("/api/v1/chat-app/messages", messageRouter);
 
 
+
+app.use(express.static(path.join(__dirname,"/frontEnd/dist")))
+app.get('*',(_,res) => {
+  res.sendFile(path.resolve(__dirname,"frontEnd","dist","index.html"))
+})
 export {httpServer}

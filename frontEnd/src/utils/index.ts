@@ -15,7 +15,7 @@ export const requestHandler = async (
   setLoading && setLoading(true);
   try {
     // Make the API request
-    console.log("making api call");
+
     const response = await api();
     const { data } = response;
     if (data?.success) {

@@ -37,7 +37,6 @@ const registerUser = (data:{
 
 
 const logoutUser = () => {
-    console.log("logging out call");
     return apiClient.get("/users/logout")
 }
 

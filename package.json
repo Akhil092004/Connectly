@@ -1,11 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "", 
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules ./src/index.js"
+    "dev": "nodemon backEnd/src/index.js",
+    "build":"npm install && npm install --prefix frontEnd && npm run build --prefix frontEnd",
+    "start": "nodemon backEnd/src/index.js"
   },
   "keywords": [
     "Chat",
