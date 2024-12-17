@@ -8,7 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const allowedOrigins = ['http://localhost:5173', 'hhttp://localhost:8000']; // Add as many as needed
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000']; // Add as many as needed
 
 // const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.resolve();
@@ -23,32 +23,32 @@ const __dirname = path.resolve();
 
 
 // CORS middleware with dynamic origin checking
-// app.use(cors({
-//   origin: (origin, callback) => {
-//     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//       callback(null, true); // Allow the request
-//     } else {
-//       callback(new Error('Not allowed by CORS'), false); // Block the request
-//     }
-//   },
-//   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-// }));
+app.use(cors({
+  origin: (origin, callback) => {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow the request
+    } else {
+      callback(new Error('Not allowed by CORS'), false); // Block the request
+    }
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+}));
 
 
 const httpServer = createServer(app)
 
 const io = new Server(httpServer,{
     pingTimeout: 60000,
-    // cors: {
-    //     origin: (origin, callback) => {
-    //         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-    //           callback(null, true); // Allow the request
-    //         } else {
-    //           callback(new Error('Not allowed by CORS'), false); // Block the request
-    //         }
-    //       },
-    //     credentials: true,
-    // },
+    cors: {
+        origin: (origin, callback) => {
+            if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+              callback(null, true); // Allow the request
+            } else {
+              callback(new Error('Not allowed by CORS'), false); // Block the request
+            }
+          },
+        credentials: true,
+    },
 })
 
 
