@@ -8,7 +8,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000']; // Add as many as needed
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:8000','https://connectly-hmjf.onrender.com']; // Add as many as needed
 
 // const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.resolve();

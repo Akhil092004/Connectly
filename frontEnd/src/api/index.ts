@@ -3,7 +3,7 @@ import { LocalStorage } from "../utils";
 
 
 const apiClient = axios.create({
-    baseURL: 'https://connectly-5r2i.onrender.com',
+    baseURL: 'https://connectly-hmjf.onrender.com',
     withCredentials: true,
     timeout: 120000,
   });
